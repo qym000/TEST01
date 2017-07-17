@@ -563,23 +563,3 @@
 		<div class="datagrid-footer"></div>
 	</div>
 
-</body>
-</html>
-<style>
-<!--/*
-.pagination-info ul li{display: inline-block;list-style-type: none;margin-left: 3px;margin-top: 2px;}
-.pagination-info ul li .prepage, .pagination-info ul li .nextpage{width: 80px;background-color: #f0f0f0;border: 1px solid #e0dfdf;cursor: pointer;}
-.pagination-info ul li .prepagenolink, .pagination-info ul li .nextpagenolink{width: 80px;background-color: #F8F6ED;color: #d3d3d3}
-.pagination-info ul li .pagenum{width: 30px;background-color: #f0f0f0;border: 1px solid #e0dfdf;cursor: pointer;}
-.pagination-info ul li .pagenumsel{width: 30px;color: red}
-.pagination-info ul li .topagebtn{width: 50px;background-color: #f0f0f0;border: 1px solid #e0dfdf;cursor: pointer;}
-.pagination-info ul li .pagemore{width: 30px;}
-.pagination-info ul li span{height: 24px;line-height: 24px;display: block;vertical-align: middle;font-weight: 700;color: #666;}
-.pagination-info ul li .topage{margin-bottom: 0px}
-.pagination-info ul li .topage input{height: 20px;width: 30px;text-indent: 2px}*/
--->
-</style>
-<!--  div>
-						共18条&nbsp;首页&nbsp;上一页&nbsp;<a href="###">下一页</a>&nbsp;<a
-							href="###">末页</a>&nbsp;第1/2页
-					</div-->
