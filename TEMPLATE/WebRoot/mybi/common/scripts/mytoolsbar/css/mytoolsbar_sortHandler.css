@@ -1,0 +1,74 @@
+.subSelecter {
+	position: absolute;
+	overflow: hidden;
+	border: 1px solid #dfdfdf;
+	-webkit-box-shadow: 2px 2px 5px #888;
+	-moz-box-shadow: 2px 2px 5px #888;
+	box-shadow: 2px 2px 5px #888;
+	display: none;
+	z-index: 990;
+	width: 90px;
+	height: 100px;
+	max-height: 220px;
+	background-color: #FFF;
+}
+
+.subSelecter div {
+	padding: 3px;
+	width: 100%;
+	height: 100%
+}
+
+.subSelecter p {
+	width: 100%;
+	height: 20px;
+	margin: 0;
+	font-weight: bold;
+	color: #000;
+	background-color: #FFF;
+	font-size: 13px;
+	padding: 1px;
+	font-family: 微软雅黑, 幼圆, 宋体;
+	cursor: default;
+}
+
+.subSelecter div .normal {
+	display: block;
+	cursor: pointer;
+	text-decoration: none;
+	font-size: 12px;
+	font-weight: bold;
+	padding-top:5px;
+	height: 18px; color : #000;
+	margin: 0;
+	padding-left: 10px;
+	color: #000;
+}
+
+.subSelecter div .normal:hover {
+	display: block;
+	cursor: pointer;
+	text-decoration: none;
+	font-size: 12px;
+	font-weight: bold;
+	padding-top:5px;
+	height: 18px; color : #000;
+	margin: 0;
+	padding-left: 10px;
+	color: #FFF;
+	background-color: #CCC;
+}
+
+.subSelecter div .selected {
+	display: block;
+	cursor: pointer;
+	color: #FFFFFF;
+	background-color: #A12624;
+	text-decoration: none;
+	font-size: 12px;
+	padding-top:3px;
+	font-weight: bold;
+	margin: 0;
+	height: 18px;
+	padding-left: 10px;
+}

@@ -1,0 +1,7 @@
+h2{font-family:"微软雅黑";margin-left:15px;margin-top:20px;margin-bottom:10px;}
+h3{font-family:"微软雅黑";margin-left:15px;margin-top:20px;margin-bottom:10px;}
+.api-table{width:95%;font-size:14px;border:1px solid #555;margin-left:10px;margin-top:10px;}
+.api-table th{border:1px solid #555;text-align:center;background-color:#E2DCBF;color:#000;height:25px;font-family:微软雅黑;}
+.api-table td{border:1px solid #555;text-align:left;background-color:#FFF;color:#000;height:20px;font-size:13px;font-family:微软雅黑;padding-left:5px;}
+.api-table .table-desc{width:350px;text-align:left;padding:5px;}
+.pre-text {font-family:微软雅黑;font-size:13px;}

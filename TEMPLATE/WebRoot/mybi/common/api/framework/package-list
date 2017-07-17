@@ -1,0 +1,8 @@
+com.mingyoutech.framework.action
+com.mingyoutech.framework.domain
+com.mingyoutech.framework.file
+com.mingyoutech.framework.file.impl
+com.mingyoutech.framework.file.vo
+com.mingyoutech.framework.service
+com.mingyoutech.framework.service.impl
+com.mingyoutech.framework.util

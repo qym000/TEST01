@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--Copyright (c) MINGYOUTECH Co. Ltd.-->
+<!DOCTYPE mapper PUBLIC 
+    "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mingyoutech.mybi.demo.stepForm.domain.Demo_user">
+	
+	<!-- 添加CRUD -->
+	<insert id="saveUserObj" parameterType="Demo_user">
+		INSERT INTO tp_demo_crud(
+			id,nam,orgidt,moduid,modate,remark,phone_num,address,position,birthday
+		)VALUES(
+			#{id},#{nam},#{orgidt,jdbcType=VARCHAR},#{moduid},sysdate,#{remark,jdbcType=VARCHAR},
+			#{phoneNum,jdbcType=VARCHAR},#{address,jdbcType=VARCHAR},
+			#{position,jdbcType=VARCHAR},#{birthday,jdbcType=NUMERIC}
+		)
+	</insert>
+	
+	<!-- 根据用户ID查询用户对象 -->
+	<select id="findUserObjById" parameterType="string" resultType="Demo_user">
+		SELECT
+			id id,
+			nam nam,
+			orgidt orgidt,
+			moduid moduid,
+			TO_CHAR(modate,'YYYY-MM-DD HH24:mi:ss') modate,
+			remark remark,
+			phone_num phoneNum,
+			address address,
+			position position,
+			birthday birthday
+		FROM tp_demo_crud
+		WHERE id = #{id}
+	</select>
+	
+	<!-- 修改用户对象基本信息 -->
+	<update id="updateUserObj1" parameterType="Demo_user">
+		UPDATE tp_demo_crud 
+		SET nam = #{nam},
+			orgidt = #{orgidt},
+			moduid = #{moduid},
+			modate = sysdate
+		WHERE id = #{id}
+	</update>
+	
+	<!-- 修改用户对象个人信息 -->
+	<update id="updateUserObj2" parameterType="Demo_user">
+		UPDATE tp_demo_crud 
+		SET phone_num = #{phoneNum,jdbcType=VARCHAR},
+			address = #{address,jdbcType=VARCHAR},
+			position = #{position},
+			birthday = #{birthday,jdbcType=NUMERIC},
+			moduid = #{moduid},
+			modate = sysdate
+		WHERE id = #{id}
+	</update>
+	
+	<!-- 修改用户对象其他信息 -->
+	<update id="updateUserObj3" parameterType="Demo_user">
+		UPDATE tp_demo_crud 
+		SET remark = #{remark,jdbcType=VARCHAR},
+			moduid = #{moduid},
+			modate = sysdate
+		WHERE id = #{id}
+	</update>
+	
+</mapper>

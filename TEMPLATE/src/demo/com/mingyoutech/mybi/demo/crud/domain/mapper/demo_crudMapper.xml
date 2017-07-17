@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--Copyright (c) MINGYOUTECH Co. Ltd.-->
+<!DOCTYPE mapper PUBLIC 
+    "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mingyoutech.mybi.demo.crud.domain.Demo_crud">
+	
+	<sql id="whereCondition">
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			<if test="nam != null and nam != ''">
+				AND upper(r.nam) like '%'||upper(#{nam})||'%'
+			</if>
+		</trim>
+	</sql>
+	
+	<!-- 修改CRUD信息：把机构修改成系统参数LOCAL_TOP_ORGIDT的值 -->
+	<update id="updateOrgidtForSysInitCall">
+		UPDATE tp_demo_crud
+		SET orgidt=(SELECT pval FROM tp_pim_param WHERE pkey='LOCAL_TOP_ORGIDT')
+		WHERE id='0'
+	</update>
+	
+	<!-- 查询CRUD，分页查询之数据集列表 -->
+	<select id="findCrudPager" resultType="Demo_crud" parameterType="Demo_crud">
+		SELECT r.id,r.nam,r.orgidt,org.orgnam,
+			   r.moduid,u.logid as modlogid, u.nam as modnam,to_char(u.modate,'YYYYMMDD') as modate,
+			   r.remark
+		FROM 
+			(SELECT * FROM tp_demo_crud
+				WHERE 1=1 @auth_conditions@) r
+		LEFT JOIN v_pim_org org ON r.orgidt=org.orgidt
+		LEFT JOIN tp_pim_user u ON r.moduid=u.id
+		<include refid="whereCondition"/>
+	</select>
+	
+	<!-- 查询CRUD，分页查询之数据集数量 -->
+	<select id="findCrudPagerCount" resultType="int" parameterType="Demo_crud">
+		SELECT count(*) 
+		FROM 
+			(SELECT * FROM tp_demo_crud
+				WHERE 1=1 @auth_conditions@) r
+		<include refid="whereCondition"/>
+	</select>
+	
+	<!-- 查询CRUD列表 -->
+	<select id="findCrudList" resultType="Demo_crud" parameterType="Demo_crud">
+		SELECT r.id,r.nam,r.orgidt,org.orgnam,
+			   r.moduid,u.logid as modlogid, u.nam as modnam,to_char(u.modate,'YYYYMMDD') as modate,
+			   r.remark
+		FROM 
+			(SELECT * FROM tp_demo_crud
+				WHERE 1=1 @auth_conditions@) r
+		LEFT JOIN v_pim_org org ON r.orgidt=org.orgidt
+		LEFT JOIN tp_pim_user u ON r.moduid=u.id
+		<include refid="whereCondition"/>
+	</select>
+	
+	<!-- 查询CRUD对象:根据id,nam -->
+    <select id="findCrudObj" resultType="Demo_crud"  parameterType="map">
+    	SELECT id,nam,orgidt,
+    		   (SELECT orgnam FROM v_pim_org o WHERE upper(o.orgidt) = upper(r.orgidt))as orgnam,
+    		   remark
+        FROM   tp_demo_crud r
+    	WHERE  
+			<if test="id != null and id != ''">
+				id = #{id}
+			</if>
+    		<if test="nam != null and logid != ''">
+				upper(nam) = upper(#{nam})
+			</if>
+    </select>
+	
+	<!-- 添加CRUD -->
+	<insert id="saveCrudObj" parameterType="Demo_crud">
+		INSERT INTO tp_demo_crud(id,nam,orgidt,remark
+		)VALUES(
+			#{id},#{nam},#{orgidt , jdbcType=VARCHAR},#{remark , jdbcType=VARCHAR}
+		) 
+	</insert>
+	
+	<!-- 修改CRUD -->
+	<update id="updateCrudObj" parameterType="Demo_crud">
+		UPDATE tp_demo_crud
+		SET nam=#{nam},
+			orgidt=#{orgidt , jdbcType=VARCHAR},
+			remark=#{remark , jdbcType=VARCHAR}
+		WHERE id=#{id}
+	</update>
+	
+	<!-- 删除多个CRUD(根据CRUD列表) -->
+	<delete id="deleteCrudList" parameterType="map">
+		DELETE FROM tp_demo_crud
+	    WHERE id IN(
+			<foreach collection="objList" item="obj" separator=",">
+				#{obj.id}
+			</foreach>
+		)
+	</delete>
+	
+</mapper>

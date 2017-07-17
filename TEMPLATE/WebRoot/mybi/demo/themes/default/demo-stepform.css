@@ -1,0 +1,75 @@
+@CHARSET "utf-8";
+input::-ms-clear{display:none;}
+.superlink{text-decoration: underline;color:#0000CC;cursor: pointer;}
+/*表单拆分导航*/
+.stepFormTitleBg {
+	list-style: none;
+	margin-top: 0px;
+	margin-left: 0px;
+	height: 34px;
+	width: 600px;
+	background-image:url("images/formStepBackground.png");
+	background-repeat:repeat-x;
+	font-family: "微软雅黑";
+	font-size: 12px;
+}
+
+.stepFormTitleBg li {
+	list-style-type: none;
+}
+
+.stepFormTitleCur .left {
+	background-image: url(images/formStepCurLeft.png);
+	background-repeat: no-repeat;
+	width: 9px;
+	height: 34px;
+	float: left;
+	margin-left: 20px;
+}
+
+.stepFormTitleCur .left-normal {
+	width: 9px;
+	height: 34px;
+	float: left;
+	margin-left: 20px;
+}
+
+.stepFormTitleCur .center {
+	background-image: url(images/formStepCurCenter.png);
+	background-repeat: repeat-x;
+	height: 34px;
+	float: left;
+	padding: 8px 5px 0 5px;
+	color: white;
+}
+
+.stepFormTitleCur .center-normal {
+	height: 34px;
+	float: left;
+	padding: 8px 5px 0 5px;
+	color: black;
+}
+
+.stepFormTitleCur .right {
+	background-image: url(images/formStepCurRight.png);
+	background-repeat: no-repeat;
+	width: 25px;
+	height: 34px;
+	float: left;
+}
+
+.stepFormTitleCur .right2 {
+	background-image: url(images/formStepCurRight2.png);
+	background-repeat: no-repeat;
+	width: 25px;
+	height: 34px;
+	float: left;
+}
+
+.stepFormTitleCur .right-normal {
+	width: 25px;
+	height: 34px;
+	float: left;
+}
+/*表单拆分导航*/
+

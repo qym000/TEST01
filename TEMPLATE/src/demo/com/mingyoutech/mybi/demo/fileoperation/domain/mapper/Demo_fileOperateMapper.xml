@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--Copyright (c) MINGYOUTECH Co. Ltd.-->
+<!DOCTYPE mapper PUBLIC 
+    "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mingyoutech.mybi.demo.fileoperation.domain.Demo_fileOperate">
+	
+
+	<!-- 应用此映射结果的select的id为findCrudPager -->
+	<resultMap id="fileOperateMap" type="Demo_fileOperate">
+		<result column="str_col" property="strCol" javaType="string" jdbcType="VARCHAR" />
+		<result column="num_col" property="numCol" javaType="int" jdbcType="NUMERIC" />
+		<result column="float_col" property="floatCol" javaType="double" jdbcType="NUMERIC" />
+		<result column="datestr_col" property="datestrCol" javaType="string" jdbcType="VARCHAR" />
+		<result column="date_col" property="dateCol" javaType="java.util.Date" />
+		<result column="enum_col" property="enumCol" javaType="string" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	
+	<!-- 查询CRUD，分页查询之数据集列表 -->
+	<select id="findFileOperateList" resultMap="fileOperateMap" parameterType="Demo_fileOperate">
+		 select str_col, num_col, float_col, datestr_col, date_col, enum_col
+  			from tp_demo_fileoperate
+	</select>
+</mapper>

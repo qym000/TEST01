@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--Copyright (c) MINGYOUTECH Co. Ltd.-->
+<!DOCTYPE mapper PUBLIC 
+    "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mingyoutech.mybi.pim.sysauth.domain.SpresSysMenu">
+		
+	<!-- 查询CRUD资源：在给某些角色进行资源分配时使用 -->
+	<select id="findSpresCrudList" resultType="Demo_crud" parameterType="map">
+		SELECT aa.*,decode(tmp.res_id,'','0','1') as isChecked 
+		FROM (
+			     SELECT id,nam,orgidt
+		         FROM  (
+		    	           SELECT * FROM tp_demo_crud 
+				    	   <if test='authRoleId == null or authRoleId!="0"'>
+				    	      WHERE id in (
+		               			   SELECT distinct res_id FROM tp_pim_role_res 
+				               			WHERE  restyp_code=#{restypCode} AND role_id IN(
+				               				SELECT role_id FROM tp_pim_user_role 
+				               				WHERE user_id = #{authUserId}
+				               			)
+		               		    )
+		               		</if>
+		         ) a
+		)aa 
+		LEFT JOIN (
+            SELECT res_id FROM tp_pim_user_res
+			WHERE user_id IN (
+		       <foreach collection="userList" item="obj" separator=",">
+			       #{obj.id}
+		       </foreach>
+		   )AND restyp_code=#{restypCode} 
+		   GROUP BY res_id 
+		   HAVING count(*) = ${userList.size()}
+        ) tmp 
+        ON aa.id=tmp.res_id 
+        ORDER BY nam
+	</select>
+	
+	
+</mapper>

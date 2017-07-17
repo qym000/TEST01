@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+	<constant name="struts.convention.result.path" value="/WEB-INF/appcase" />
+	<constant name="struts.convention.package.locators" value="action" />
+	<constant name="struts.convention.action.suffix" value="Action" />
+	<constant name="struts.convention.package.locators.basePackage" value="com.mingyoutech" />
+	<constant name="struts.enable.DynamicMethodInvocation" value="true" />
+	<constant name="struts.convention.action.name.separator" value="-" />
+	<constant name="struts.convention.action.fileProtocols" value="jar,wsjar" />
+	<constant name="struts.convention.action.includeJars" value=".*?/mybi*.*?jar(!/)?"/>
+	
+	<constant name="struts.custom.i18n.resources" value="i18nResources" />
+	<constant name="struts.i18n.encoding" value="UTF-8" />
+	
+	<!-- 1G -->
+	<bean type="org.apache.struts2.dispatcher.multipart.MultiPartRequest" name="parser" class="com.mingyoutech.mybi.pim.util.MyMultiPartRequest" scope="default" />
+    <constant name="struts.multipart.parser" value="parser" />
+    <constant name="struts.multipart.maxSize" value="1073741824" />
+   
+	<package name="privilegeStack" extends="struts-default">
+		<interceptors>
+			<interceptor name="i18nInterceptor"
+				class="com.mingyoutech.mybi.pim.common.interceptor.I18NInterceptor"></interceptor>
+			<interceptor name="logInterceptor"
+				class="com.mingyoutech.mybi.pim.common.interceptor.LogInterceptor"></interceptor>
+			<!-- modifyer: ian shan
+			         desc: 权限修改，支持对action级别控制
+			         date: 2015/11/05
+			<interceptor name="privInterceptor"
+				class="com.mingyoutech.mybi.pim.common.interceptor.PrivInterceptor"></interceptor>
+				 -->
+			<interceptor name="privInterceptor"
+				class="com.mingyoutech.mybi.pim.common.interceptor.AccessControlInterceptor"></interceptor>
+			<interceptor-stack name="privLogInterceptor">
+				<interceptor-ref name="defaultStack"></interceptor-ref>
+				<interceptor-ref name="i18nInterceptor"></interceptor-ref>
+				<interceptor-ref name="privInterceptor"></interceptor-ref>				
+				<interceptor-ref name="logInterceptor"></interceptor-ref>
+			</interceptor-stack>
+		</interceptors>
+		<default-interceptor-ref name="privLogInterceptor"></default-interceptor-ref>
+		<global-results>
+			<result name="login" type="redirect">start.action</result>
+			<result name="session_timeout">mybi/common/sessionerror.jsp</result>
+			<result name="noAuth">/mybi/common/403.jsp</result>
+		</global-results>
+	</package>
+	
+	<package name="basicStack" extends="struts-default">
+		<interceptors>
+			<interceptor name="i18nInterceptor"
+				class="com.mingyoutech.mybi.pim.common.interceptor.I18NInterceptor"></interceptor>
+			<interceptor name="logInterceptor"
+				class="com.mingyoutech.mybi.pim.common.interceptor.LogInterceptor"></interceptor>
+			<interceptor-stack name="basicInterceptor">
+				<interceptor-ref name="defaultStack"></interceptor-ref>
+				<interceptor-ref name="i18nInterceptor"></interceptor-ref>
+				<interceptor-ref name="logInterceptor"></interceptor-ref>
+			</interceptor-stack>
+		</interceptors>
+		<default-interceptor-ref name="basicInterceptor"></default-interceptor-ref>
+		<global-results>
+			<result name="login" type="redirect">start.action</result>
+			<result name="session_timeout">mybi/common/sessionerror.jsp</result>
+			<result name="noAuth">/mybi/common/403.jsp</result>
+		</global-results>
+	</package>
+	
+</struts>

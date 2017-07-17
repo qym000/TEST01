@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright (c) MINGYOUTECH Co. Ltd. -->
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
+  <context-param>
+    <param-name>contextConfigLocation</param-name>
+    <param-value>classpath:applicationContext.xml</param-value>
+  </context-param>
+  <listener>
+    <listener-class>
+			org.springframework.web.context.ContextLoaderListener
+		</listener-class>
+  </listener>
+  <listener>
+    <listener-class>com.mingyoutech.mybi.pim.common.listener.SystemStartInitLoaderListener</listener-class>
+  </listener>
+  <listener>
+    <listener-class>com.mingyoutech.mybi.pim.common.listener.SystemLoginSessionListener</listener-class>
+  </listener>
+  
+  <listener>
+    <listener-class>com.mingyoutech.framework.lisener.MyServletContextListener</listener-class>
+  </listener>
+  
+  <servlet>
+    <display-name>FCExporter</display-name>
+    <servlet-name>FCExporter</servlet-name>
+    <servlet-class>com.fusioncharts.exporter.servlet.FCExporter</servlet-class>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>FCExporter</servlet-name>
+    <url-pattern>/FCExporter</url-pattern>
+  </servlet-mapping>
+  
+  <filter>
+    <filter-name>charfilter</filter-name>
+    <filter-class>com.mingyoutech.framework.filter.CharFilter</filter-class>
+    <init-param>
+      <param-name>encoding</param-name>
+      <param-value>UTF-8</param-value>
+    </init-param>
+  </filter>
+  <filter-mapping>
+    <filter-name>charfilter</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+  
+  <!-- 单点登录action 参数： casLoginUrl   单点登录服务器URL
+  <filter>
+    <filter-name>casClientLogin</filter-name>
+    <filter-class>com.mingyoutech.mybi.cas.client.filter.CasLoginFilter</filter-class>
+    <init-param>
+        <param-name>casLoginUrl</param-name>
+        <param-value>http://22.56.50.60:8080/mybi-cas/cas_login!toLogin.action</param-value>
+    </init-param>
+  </filter>
+  <filter-mapping>
+    <filter-name>casClientLogin</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+   -->
+  <!-- 票据验证action 参数： casValidTicketUrl   票据验证URL setCasLoginSuccessDataAction    登录成功后数据初始化的action（我们的系统使用统一的action（直接填写mybi即可），如果接入其他系统则可以自行编写登录成功后数据验证的action）登录成功后系统会自动注入session两个参数,cas_userid(登录用户编号)以及cas_fu(最初访问的URL)，在自定义的action中可以使用这两个参数进行用户数据查询以及页面跳转（注意：处理完成后最好清除session中这两个参数）
+  
+  <filter>
+    <filter-name>casClientValidTicket</filter-name>
+    <filter-class>com.mingyoutech.mybi.cas.client.filter.CasValidTicketFilter</filter-class>
+    <init-param>
+        <param-name>casValidTicketUrl</param-name>
+        <param-value>http://22.56.50.60:8080:8080/mybi-cas/cas_login!validTicket.action</param-value>
+    </init-param>
+    <init-param>
+        <param-name>casBackUrl</param-name>
+        <param-value>http://22.56.50.60:8080/mybi-cas</param-value>
+    </init-param>
+    <init-param>
+        <param-name>casLoginSuccessDataAction</param-name>
+        <param-value>mybi</param-value>
+    </init-param>
+  </filter>
+  <filter-mapping>
+    <filter-name>casClientValidTicket</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+  -->
+  <!-- 单点登出action 参数： casLogoutUrl 单点登出服务器URL clientLogoutUrl   单点登出客户端URL
+  <filter>
+    <filter-name>casClientLogout</filter-name>
+    <filter-class>com.mingyoutech.mybi.cas.client.filter.CasLogoutFilter</filter-class>
+    <init-param>
+        <param-name>casLogoutUrl</param-name>
+        <param-value>http://22.56.50.60:8080/mybi-cas/cas_login!sysauthLogout.action</param-value>
+    </init-param>
+    <init-param>
+        <param-name>clientLogoutUrl</param-name>
+        <param-value>login-portal!sysauthLogout.action</param-value>
+    </init-param>  
+  </filter>
+  <filter-mapping>
+    <filter-name>casClientLogout</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+   -->
+  
+  <filter>
+    <filter-name>struts2</filter-name>
+    <filter-class>org.apache.struts2.dispatcher.ng.filter.StrutsPrepareAndExecuteFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>struts2</filter-name>
+    <url-pattern>*.action</url-pattern>
+  </filter-mapping>
+  <filter-mapping>
+    <filter-name>struts2</filter-name>
+    <url-pattern>*.jsp</url-pattern>
+  </filter-mapping>
+  <session-config>
+    <session-timeout>30</session-timeout>
+  </session-config>
+  <error-page>
+   <error-page>
+    <error-code>403</error-code>
+    <location>/mybi/common/403.jsp</location>
+  </error-page>
+    <error-code>404</error-code>
+    <location>/mybi/common/404.jsp</location>
+  </error-page>
+  <error-page>
+    <error-code>500</error-code>
+    <location>/mybi/common/500.jsp</location>
+  </error-page>
+  
+  <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+  </welcome-file-list>
+</web-app>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--Copyright (c) MINGYOUTECH Co. Ltd.-->
+<!DOCTYPE mapper PUBLIC 
+    "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mingyoutech.mybi.pim.vm.domain.Vm_component">
+   <!-- 保存升级日志 -->
+   <insert id="saveUpdLog" parameterType="map">
+       INSERT INTO 
+          TP_VM_UPDLOG(CENDAT, CODE, FILENAME, UPDTYP, USERID, HOST, IP) VALUES (
+       SYSDATE,
+       #{code, jdbcType=VARCHAR},
+       #{filename, jdbcType=VARCHAR},
+       #{updtyp, jdbcType=VARCHAR},
+       #{userid, jdbcType=VARCHAR},
+       #{host, jdbcType=VARCHAR},
+       #{ip, jdbcType=VARCHAR}
+       )
+   </insert>
+   
+   <!-- 分页查询升级日志 -->
+   <select id="findUpdLogPager" parameterType="Vm_updlog" resultType="Vm_updlog">
+   SELECT ID, TO_CHAR(CENDAT, 'yyyy/MM/dd HH24:mi:ss') CENDAT, CODE, FILENAME, UPDTYP, USERID, HOST, IP
+  FROM TP_VM_UPDLOG WHERE CODE = #{code}
+   </select>
+   <select id="findUpdLogPagerCount" parameterType="Vm_updlog" resultType="int">
+   SELECT COUNT(*)
+  FROM TP_VM_UPDLOG WHERE CODE = #{code}
+   </select>
+   
+</mapper>
